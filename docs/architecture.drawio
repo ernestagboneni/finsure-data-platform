@@ -1,0 +1,103 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="QYdOPeiTQUENEP--inV8">
+    <mxGraphModel dx="1414" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RrSb717x3UC9tu654v74-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;FinSure Analytics Group Archtecture Diagram&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="390" x="400" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Current State (As-Is)" vertex="1">
+          <mxGeometry height="30" width="160" x="50" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Propsed State (Future State)" vertex="1">
+          <mxGeometry height="30" width="160" x="50" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-19" edge="1" parent="1" source="RrSb717x3UC9tu654v74-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RrSb717x3UC9tu654v74-22" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="Source System" vertex="1">
+          <mxGeometry height="50" width="120" x="70" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-21" edge="1" parent="1" source="RrSb717x3UC9tu654v74-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RrSb717x3UC9tu654v74-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="Staging(stg.*)" vertex="1">
+          <mxGeometry height="50" width="120" x="250" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-23" edge="1" parent="1" source="RrSb717x3UC9tu654v74-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RrSb717x3UC9tu654v74-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="ETL (SSIS)&lt;div&gt;&lt;font size=&quot;1&quot;&gt;-Error handling&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="440" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-25" edge="1" parent="1" source="RrSb717x3UC9tu654v74-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RrSb717x3UC9tu654v74-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="Data Warehouse&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;- Secure RBAC&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;-Dynamic Data Masking&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="620" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-27" edge="1" parent="1" source="RrSb717x3UC9tu654v74-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RrSb717x3UC9tu654v74-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="Semantic models and Views" vertex="1">
+          <mxGeometry height="50" width="120" x="810" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="Power BI" vertex="1">
+          <mxGeometry height="50" width="120" x="1000" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font size=&quot;1&quot;&gt;Reconciliation Engine&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="120" x="620" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font size=&quot;1&quot;&gt;Audit Logging&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="120" x="750" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-32" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font size=&quot;1&quot;&gt;Security: Dynamic Data Masking, RBAC&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="120" x="880" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-33" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font size=&quot;1&quot;&gt;CI/CD: GitHub&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="120" x="1010" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-4" edge="1" parent="1" source="RrSb717x3UC9tu654v74-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RrSb717x3UC9tu654v74-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Source System" vertex="1">
+          <mxGeometry height="40" width="120" x="60" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-9" edge="1" parent="1" source="RrSb717x3UC9tu654v74-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RrSb717x3UC9tu654v74-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Staging(stg.*)" vertex="1">
+          <mxGeometry height="40" width="120" x="240" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-10" edge="1" parent="1" source="RrSb717x3UC9tu654v74-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RrSb717x3UC9tu654v74-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="ETL (SSIS)" vertex="1">
+          <mxGeometry height="40" width="120" x="430" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-11" edge="1" parent="1" source="RrSb717x3UC9tu654v74-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RrSb717x3UC9tu654v74-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Data Warehouse" vertex="1">
+          <mxGeometry height="40" width="120" x="610" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-12" edge="1" parent="1" source="RrSb717x3UC9tu654v74-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RrSb717x3UC9tu654v74-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Semantic models and Views" vertex="1">
+          <mxGeometry height="40" width="120" x="800" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;container=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Power BI" vertex="1">
+          <mxGeometry height="40" width="120" x="990" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-34" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Reconcialiation Job Disabled" vertex="1">
+          <mxGeometry height="40" width="170" x="600" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="RrSb717x3UC9tu654v74-35" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Security Gaps&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;RBAC outdated&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;No Masking&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="170" x="790" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
