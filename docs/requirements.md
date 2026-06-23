@@ -252,3 +252,27 @@ Compare premium values between source and warehouse.
 - ETL documentation  
 - Security and compliance documentation  
 - RCA report for Meridian  
+
+## 9. TECHNICAL STANDARDS
+### 9.1 SQL Coding Standards
+- All T-SQL objects use schema prefix: dbo., stg., warehouse., audit., security.
+- All stored procedures named: schema.usp_VerbObject — e.g. dbo.usp_LoadPremiumFact
+- All functions named: schema.ufn_VerbObject
+- All tables use PascalCase — e.g. PremiumFact, PolicyDimension
+- No SELECT star in production code — explicit column lists only
+- Every stored procedure has a header block: author, date, description, change log
+- Every stored procedure has error handling: TRY / CATCH with RAISERROR or THROW
+
+### 9.2 Version Control Standards
+- All work in the finsure-enterprise-data-platform-simulation GitHub repository
+- Branch strategy: main to release to feature or hotfix
+- Every change via Pull Request — no direct pushes to main
+- PR must include: description, test evidence, rollback plan
+- SQL scripts must be idempotent — safe to run twice without error
+
+### 9.3 Documentation Standards
+- All architecture decisions recorded in /docs/ as Markdown
+- Every SSIS package has a README in its folder
+- Every SQL Agent job has a script file and description in /docs/
+
+
