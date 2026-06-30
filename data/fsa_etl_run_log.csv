@@ -1,0 +1,101 @@
+run_id,package_name,run_date,run_week,status,rows_processed,rows_rejected,duration_seconds,error_message,triggered_by
+1,etl_full_load,2025-01-06,W02,SUCCESS,1576,5,139,,Manual
+2,etl_incremental_load,2025-01-06,W02,SUCCESS,2957,12,401,,SQL_Agent
+3,etl_reconciliation,2025-01-06,W02,FAILED,0,44,23,Transient connection failure - rerun succeeded,SQL_Agent
+4,etl_audit_log,2025-01-06,W02,SUCCESS,1717,1,397,,SQL_Agent
+5,etl_full_load,2025-01-13,W03,SUCCESS,1509,7,255,,Manual
+6,etl_incremental_load,2025-01-13,W03,SUCCESS,2585,2,201,,SQL_Agent
+7,etl_reconciliation,2025-01-13,W03,SUCCESS,2702,5,75,,SQL_Agent
+8,etl_audit_log,2025-01-13,W03,SUCCESS,1813,7,146,,SQL_Agent
+9,etl_full_load,2025-01-20,W04,SUCCESS,861,3,376,,Manual
+10,etl_incremental_load,2025-01-20,W04,SUCCESS,2658,12,315,,SQL_Agent
+11,etl_reconciliation,2025-01-20,W04,FAILED,0,64,24,Transient connection failure - rerun succeeded,SQL_Agent
+12,etl_audit_log,2025-01-20,W04,SUCCESS,2377,7,301,,SQL_Agent
+13,etl_full_load,2025-01-27,W05,SUCCESS,1401,6,51,,Manual
+14,etl_incremental_load,2025-01-27,W05,SUCCESS,2554,4,412,,SQL_Agent
+15,etl_reconciliation,2025-01-27,W05,SUCCESS,884,2,98,,SQL_Agent
+16,etl_audit_log,2025-01-27,W05,SUCCESS,1149,6,191,,SQL_Agent
+17,etl_full_load,2025-02-03,W06,SUCCESS,1686,6,232,,Manual
+18,etl_incremental_load,2025-02-03,W06,SUCCESS,2703,11,228,,SQL_Agent
+19,etl_reconciliation,2025-02-03,W06,SUCCESS,3271,9,355,,SQL_Agent
+20,etl_audit_log,2025-02-03,W06,SUCCESS,2220,4,396,,SQL_Agent
+21,etl_full_load,2025-02-10,W07,SUCCESS,3893,9,216,,Manual
+22,etl_incremental_load,2025-02-10,W07,SUCCESS,982,10,198,,SQL_Agent
+23,etl_reconciliation,2025-02-10,W07,SUCCESS,4074,3,255,,SQL_Agent
+24,etl_audit_log,2025-02-10,W07,SUCCESS,941,0,209,,SQL_Agent
+25,etl_full_load,2025-02-17,W08,SUCCESS,2906,7,401,,Manual
+26,etl_incremental_load,2025-02-17,W08,SUCCESS,3698,4,86,,SQL_Agent
+27,etl_reconciliation,2025-02-17,W08,SUCCESS,3840,4,117,,SQL_Agent
+28,etl_audit_log,2025-02-17,W08,SUCCESS,3090,3,384,,SQL_Agent
+29,etl_full_load,2025-02-24,W09,SUCCESS,870,6,286,,Manual
+30,etl_incremental_load,2025-02-24,W09,SUCCESS,3422,6,68,,SQL_Agent
+31,etl_reconciliation,2025-02-24,W09,SUCCESS,3801,8,392,,SQL_Agent
+32,etl_audit_log,2025-02-24,W09,SUCCESS,3840,12,292,,SQL_Agent
+33,etl_full_load,2025-03-03,W10,FAILED,0,1280,7,Package aborted - see SSIS log,Manual
+34,etl_incremental_load,2025-03-03,W10,FAILED,0,2900,35,Package aborted - see SSIS log,SQL_Agent
+35,etl_reconciliation,2025-03-03,W10,FAILED,0,2355,14,SQL Agent job terminated unexpectedly,SQL_Agent
+36,etl_audit_log,2025-03-03,W10,FAILED,0,1148,4,Connection timeout to source system,SQL_Agent
+37,etl_full_load,2025-03-10,W11,FAILED,0,1385,14,Deadlock victim on stg.Premiums,Manual
+38,etl_incremental_load,2025-03-10,W11,FAILED,0,2874,40,SQL Agent job terminated unexpectedly,SQL_Agent
+39,etl_reconciliation,2025-03-10,W11,FAILED,0,792,35,SQL Agent job terminated unexpectedly,SQL_Agent
+40,etl_audit_log,2025-03-10,W11,FAILED,0,1684,17,SQL Agent job terminated unexpectedly,SQL_Agent
+41,etl_full_load,2025-03-17,W12,FAILED,0,2857,21,Connection timeout to source system,Manual
+42,etl_incremental_load,2025-03-17,W12,FAILED,0,1548,27,Package aborted - see SSIS log,SQL_Agent
+43,etl_reconciliation,2025-03-17,W12,FAILED,0,1525,30,Package aborted - see SSIS log,SQL_Agent
+44,etl_audit_log,2025-03-17,W12,FAILED,0,1657,36,SQL Agent job terminated unexpectedly,SQL_Agent
+45,etl_full_load,2025-03-24,W13,FAILED,0,1415,12,SQL Agent job terminated unexpectedly,Manual
+46,etl_incremental_load,2025-03-24,W13,FAILED,0,1324,25,Deadlock victim on stg.Premiums,SQL_Agent
+47,etl_reconciliation,2025-03-24,W13,FAILED,0,804,33,Package aborted - see SSIS log,SQL_Agent
+48,etl_audit_log,2025-03-24,W13,FAILED,0,1379,35,SQL Agent job terminated unexpectedly,SQL_Agent
+49,etl_full_load,2025-03-31,W14,FAILED,0,2846,15,SQL Agent job terminated unexpectedly,Manual
+50,etl_incremental_load,2025-03-31,W14,FAILED,0,120,10,Package aborted - see SSIS log,SQL_Agent
+51,etl_reconciliation,2025-03-31,W14,FAILED,0,119,8,Deadlock victim on stg.Premiums,SQL_Agent
+52,etl_audit_log,2025-03-31,W14,FAILED,0,2864,27,SQL Agent job terminated unexpectedly,SQL_Agent
+53,etl_full_load,2025-04-07,W15,FAILED,0,2821,15,Package aborted - see SSIS log,Manual
+54,etl_incremental_load,2025-04-07,W15,FAILED,0,1367,10,SQL Agent job terminated unexpectedly,SQL_Agent
+55,etl_reconciliation,2025-04-07,W15,FAILED,0,2008,15,Deadlock victim on stg.Premiums,SQL_Agent
+56,etl_audit_log,2025-04-07,W15,FAILED,0,718,12,Package aborted - see SSIS log,SQL_Agent
+57,etl_full_load,2025-04-14,W16,FAILED,0,1421,9,Connection timeout to source system,Manual
+58,etl_incremental_load,2025-04-14,W16,FAILED,0,1306,6,Deadlock victim on stg.Premiums,SQL_Agent
+59,etl_reconciliation,2025-04-14,W16,FAILED,0,977,38,Package aborted - see SSIS log,SQL_Agent
+60,etl_audit_log,2025-04-14,W16,FAILED,0,2311,18,SQL Agent job terminated unexpectedly,SQL_Agent
+61,etl_full_load,2025-04-21,W17,FAILED,0,1285,26,Deadlock victim on stg.Premiums,Manual
+62,etl_incremental_load,2025-04-21,W17,FAILED,0,1632,2,SQL Agent job terminated unexpectedly,SQL_Agent
+63,etl_reconciliation,2025-04-21,W17,FAILED,0,1319,10,Deadlock victim on stg.Premiums,SQL_Agent
+64,etl_audit_log,2025-04-21,W17,FAILED,0,345,5,SQL Agent job terminated unexpectedly,SQL_Agent
+65,etl_full_load,2025-04-28,W18,SUCCESS,4185,12,120,,Manual
+66,etl_incremental_load,2025-04-28,W18,SUCCESS,1644,8,208,,SQL_Agent
+67,etl_reconciliation,2025-04-28,W18,SUCCESS,3855,12,419,,SQL_Agent
+68,etl_audit_log,2025-04-28,W18,SUCCESS,3981,6,106,,SQL_Agent
+69,etl_full_load,2025-05-05,W19,SUCCESS,2499,4,401,,Manual
+70,etl_incremental_load,2025-05-05,W19,SUCCESS,1784,4,238,,SQL_Agent
+71,etl_reconciliation,2025-05-05,W19,SUCCESS,2026,4,212,,SQL_Agent
+72,etl_audit_log,2025-05-05,W19,SUCCESS,1225,2,235,,SQL_Agent
+73,etl_full_load,2025-05-12,W20,SUCCESS,2685,9,154,,Manual
+74,etl_incremental_load,2025-05-12,W20,SUCCESS,2067,1,235,,SQL_Agent
+75,etl_reconciliation,2025-05-12,W20,SUCCESS,2975,11,362,,SQL_Agent
+76,etl_audit_log,2025-05-12,W20,SUCCESS,887,6,168,,SQL_Agent
+77,etl_full_load,2025-05-19,W21,SUCCESS,1278,4,57,,Manual
+78,etl_incremental_load,2025-05-19,W21,SUCCESS,3179,4,385,,SQL_Agent
+79,etl_reconciliation,2025-05-19,W21,SUCCESS,2996,4,234,,SQL_Agent
+80,etl_audit_log,2025-05-19,W21,FAILED,0,64,8,Transient connection failure - rerun succeeded,SQL_Agent
+81,etl_full_load,2025-05-26,W22,SUCCESS,2300,5,198,,Manual
+82,etl_incremental_load,2025-05-26,W22,SUCCESS,2781,8,324,,SQL_Agent
+83,etl_reconciliation,2025-05-26,W22,SUCCESS,4021,4,52,,SQL_Agent
+84,etl_audit_log,2025-05-26,W22,SUCCESS,2599,5,342,,SQL_Agent
+85,etl_full_load,2025-06-02,W23,SUCCESS,3398,12,318,,Manual
+86,etl_incremental_load,2025-06-02,W23,SUCCESS,3505,10,153,,SQL_Agent
+87,etl_reconciliation,2025-06-02,W23,SUCCESS,1141,4,371,,SQL_Agent
+88,etl_audit_log,2025-06-02,W23,SUCCESS,2367,8,113,,SQL_Agent
+89,etl_full_load,2025-06-09,W24,SUCCESS,2928,4,261,,Manual
+90,etl_incremental_load,2025-06-09,W24,SUCCESS,2292,2,418,,SQL_Agent
+91,etl_reconciliation,2025-06-09,W24,SUCCESS,3586,4,211,,SQL_Agent
+92,etl_audit_log,2025-06-09,W24,SUCCESS,3402,10,161,,SQL_Agent
+93,etl_full_load,2025-06-16,W25,FAILED,0,63,10,Transient connection failure - rerun succeeded,Manual
+94,etl_incremental_load,2025-06-16,W25,SUCCESS,2247,4,81,,SQL_Agent
+95,etl_reconciliation,2025-06-16,W25,SUCCESS,1145,2,219,,SQL_Agent
+96,etl_audit_log,2025-06-16,W25,SUCCESS,3254,5,291,,SQL_Agent
+97,etl_full_load,2025-06-23,W26,SUCCESS,1244,8,84,,Manual
+98,etl_incremental_load,2025-06-23,W26,SUCCESS,3132,12,169,,SQL_Agent
+99,etl_reconciliation,2025-06-23,W26,SUCCESS,1757,7,293,,SQL_Agent
+100,etl_audit_log,2025-06-23,W26,SUCCESS,3126,10,379,,SQL_Agent
