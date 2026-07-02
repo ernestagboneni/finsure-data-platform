@@ -8,7 +8,7 @@ BEGIN TRY
     UPDATE stg.Claims
     SET    claim_status = UPPER(TRIM(claim_status))
     WHERE  claim_status IS NOT NULL
-           AND claim_status <> UPPER(TRIM(claim_status));
+           AND claim_status COLLATE Latin1_General_CS_A <> UPPER(TRIM(claim_status));
     SELECT @rowCount = @@ROWCOUNT;
     PRINT @rowCount; 
     
