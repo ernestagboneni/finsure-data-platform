@@ -9,6 +9,9 @@ AS
 
 BEGIN
     BEGIN TRY
+        DECLARE @DupRowCount INT;
+
+        PRINT 'Starting duplicate payment records removal process...';
 
         WITH     dupCheck
         AS       (SELECT payment_reference,
@@ -24,15 +27,19 @@ BEGIN
                          ROW_NUMBER() OVER (PARTITION BY payment_reference ORDER BY payment_timestamp ASC) AS rn
                   FROM   stg.Payments)
 
-        DELETE stg.Payments
-        FROM stg.Payments p
-        WHERE EXISTS (SELECT 1
-                      FROM dupCheck d
-                      WHERE d.payment_reference = p.payment_reference
-                      AND d.payment_timestamp = p.payment_timestamp
-                      AND d.rn > 1 );
-        PRINT CONCAT('Duplicate payment records removed successfully. Total records deleted: ', @@ROWCOUNT);
-        ;
+        --DELETE stg.Payments
+        --FROM stg.Payments p
+        --WHERE EXISTS (SELECT 1
+        --              FROM dupCheck d
+        --              WHERE d.payment_reference = p.payment_reference
+        --              AND d.payment_timestamp = p.payment_timestamp
+        --              AND d.rn > 1 );
+
+        SELECT @DupRowCount = COUNT(*)      
+        FROM dupCheck 
+        WHERE rn > 1 ;
+        PRINT CONCAT('Duplicate payment records identified successfully. Total records found: ', @DupRowCount);
+        
     END TRY
     BEGIN CATCH
         PRINT 'Error in usp_DeduplicatePayments: ' + ERROR_MESSAGE();

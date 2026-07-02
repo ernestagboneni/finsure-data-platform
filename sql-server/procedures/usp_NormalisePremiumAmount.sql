@@ -7,17 +7,14 @@ CREATE OR ALTER PROCEDURE stg.usp_NormalisePremiumAmount
 AS
 BEGIN
     BEGIN TRY
-        DECLARE @DirtyPremiumAMount AS INT; -- GET THE TOTAL COUNT OF PREMUIM AMOUNT WITH CURRENCY SYMOL
-        SELECT @DirtyPremiumAMount = COUNT(policy_id)
-        FROM   stg.Policies
-        WHERE  premium_amount LIKE '£%';
-
-        PRINT 'Total Count of Premium Amount with Currency Symbol: ' + CAST (@DirtyPremiumAMount AS VARCHAR (10));
 
         UPDATE stg.Policies
         SET    premium_amount    = TRIM(REPLACE(REPLACE(premium_amount, '£', ''), ',', '')),
                policy_start_date = CONVERT (VARCHAR (10), COALESCE (TRY_CONVERT (DATE, policy_start_date, 120), TRY_CONVERT (DATE, policy_start_date, 103)), 23)
-        WHERE  premium_amount LIKE '£%';
+        WHERE  policy_start_date IS NOT NULL
+        AND premium_amount LIKE '%£%'
+        OR premium_amount LIKE '%,%'
+        ;
                 
         PRINT CONCAT('Dirty rows count with currency symbol: ', @@ROWCOUNT)
 
