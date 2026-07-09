@@ -39,7 +39,8 @@ SELECT 'Running Premium Reconciliation...' AS Message;
     SELECT
         COUNT(*) AS total_policies,
         SUM(CASE WHEN data_quality_flag_calc = 'Y' THEN 1 ELSE 0 END) AS flagged_policies_with,
-        SUM(CASE WHEN data_quality_flag_calc = 'N' THEN 1 ELSE 0 END) AS non_flagged_policies
+        SUM(CASE WHEN data_quality_flag_calc = 'N' THEN 1 ELSE 0 END) AS non_flagged_policies,
+        SUM(ISNULL(variance,0)) AS total_variance_gbp
     FROM CTE_Policies;
 
 COMMIT TRANSACTION;

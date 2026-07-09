@@ -8,9 +8,11 @@ BEGIN TRY
     UPDATE stg.Claims
     SET    claim_status = UPPER(TRIM(claim_status))
     WHERE  claim_status IS NOT NULL
-           AND claim_status <> UPPER(TRIM(claim_status));
+           AND claim_status COLLATE Latin1_General_CS_AS <> UPPER(TRIM(claim_status));
+
     SELECT @rowCount = @@ROWCOUNT;
-    PRINT @rowCount; 
+    PRINT 'Number of rows returned by usp_StandardiseClaimStatus: ' + CAST(@rowCount AS NVARCHAR(10));
+
     
     ---- 2) Add CHECK constraint if not present (no UPPER needed because values standardized) --IF NOT EXISTS ( --    SELECT 1 --    FROM sys.check_constraints cc --    WHERE cc.name = 'CK_Claims_ClaimStatus_Allowed' --        AND cc.parent_object_id = OBJECT_ID('stg.Claims') --) --BEGIN --    ALTER TABLE stg.Claims --    ADD CONSTRAINT CK_Claims_ClaimStatus_Allowed --    CHECK (claim_status IN ('OPEN','PENDING','CLOSED','REJECTED')); --END
 END TRY
@@ -19,3 +21,4 @@ BEGIN CATCH
     PRINT 'Error occurred while standardising claim_status: ' + ERROR_MESSAGE();
 END CATCH
 RETURN 0;
+

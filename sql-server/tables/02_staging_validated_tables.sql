@@ -105,8 +105,8 @@ BEGIN TRY
         policy_end_date          VARCHAR(20)     NULL,
         payment_frequency        NVARCHAR(50)    NULL,
         premium_amount           VARCHAR(50)   NULL,
-        warehouse_premium_gbp    VARCHAR(30)   NULL,
-        premium_variance_gbp     VARCHAR(30)   NULL,
+        warehouse_premium_gbp    DECIMAL(18,2)   NULL,
+        premium_variance_gbp     DECIMAL(18,2)   NULL,
         etl_status               NVARCHAR(50)    NULL,
         etl_processed_week       CHAR(3)         NULL, -- format 'YYYY-WW' recommended
         source_system            NVARCHAR(100)   NULL,
