@@ -1,3 +1,5 @@
+USE FSA_Staging
+GO  
 PRINT '================================================================'
 PRINT 'Load the main staging tables where that will be cleaned or transformed'
 PRINT '================================================================'

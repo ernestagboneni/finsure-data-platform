@@ -2,6 +2,8 @@
 -- Purpose: This to remove duplicate payment records from the payment table using the payment reference.
 --          Windows function was used to detect the duplicate row in in a CTE
 -- Author: Ernest Agboneni | Created: 29/06/2026
+USE FSA_Staging
+GO  
 CREATE OR ALTER PROCEDURE [stg].usp_DeduplicatePayments 
 
 AS

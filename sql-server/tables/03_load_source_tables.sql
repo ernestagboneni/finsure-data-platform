@@ -1,6 +1,8 @@
 ---===========================================================================================
 ---Load Pr staging tables so that source files and tables are the same without transformation
 ---===========================================================================================
+USE FSA_Staging
+GO
 PRINT '================================================================'
 PRINT 'Load Pr staging tablesso that source files and tables are the same without transformation'
 PRINT '================================================================'

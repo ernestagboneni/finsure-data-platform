@@ -66,14 +66,16 @@ CREATE TABLE IF NOT EXISTS stg.Policies
     data_quality_flag       CHAR(1) DEFAULT 'N'
 );
 
-SELECT * --datname
+SELECT * 
 FROM pg_database
-WHERE datname = 'fsa_staging_pg';
+WHERE datname = 'fsa_staging_pg'
+;
 
 SELECT *
 FROM information_schema.schemata
 WHERE schema_name = 'stg';
+;
 
-SELECT *
+SELECT table_catalog, table_schema, table_type
 FROM information_schema.tables
 WHERE table_schema = 'stg';

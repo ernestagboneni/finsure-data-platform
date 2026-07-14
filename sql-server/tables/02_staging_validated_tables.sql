@@ -1,3 +1,5 @@
+USE FSA_Staging
+GO  
 -- Ensure schema exists
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'stg')
 BEGIN
