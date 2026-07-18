@@ -1,6 +1,8 @@
 -- Procedure: [stg].usp_StandardiseClaimStatus
 -- Purpose: This is to convert the claim_status column in the stg.Claims table to a standardised format of capitalised. This ensures consistency in the claim status values across the database.
 -- Author: Ernest Agboneni | Created: 29/06/2026
+USE FSA_Staging
+GO  
 CREATE OR ALTER PROCEDURE stg.usp_StandardiseClaimStatus
 AS
 DECLARE @rowCount AS INT;
