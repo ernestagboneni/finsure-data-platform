@@ -16,7 +16,7 @@ SELECT 'Running Premium Reconciliation...' AS Message;
         SELECT policy_id, 
                 premium_amount, 
                 warehouse_premium_gbp, 
-                ABS(TRY_CONVERT(DECIMAL(18,2),premium_amount) - TRY_CONVERT(DECIMAL(18,2),warehouse_premium_gbp) ) AS variance,
+                ABS(TRY_CONVERT(DECIMAL(18,2),premium_amount) - TRY_CONVERT(DECIMAL(18,2),warehouse_premium_gbp) ) AS variance2,
                 CASE 
                     WHEN ABS(TRY_CONVERT(DECIMAL(18,2),premium_amount) - TRY_CONVERT(DECIMAL(18,2),warehouse_premium_gbp) ) > 500 THEN 'Y'
                     ELSE 'N'
@@ -33,14 +33,18 @@ SELECT 'Running Premium Reconciliation...' AS Message;
     --FROM CTE_Policies
     --INNER JOIN stg.Policies on CTE_Policies.policy_id = stg.Policies.policy_id
     --WHERE stg.Policies.policy_id = CTE_Policies.policy_id
+    --AND data_quality_flag_calc = 'Y';
 
     --PRINT 'Premium Reconciliation completed successfully. Affected rows: ' + CAST (@@ROWCOUNT AS VARCHAR(10));
    
     SELECT
         COUNT(*) AS total_policies,
-        SUM(CASE WHEN data_quality_flag_calc = 'Y' THEN 1 ELSE 0 END) AS flagged_policies_with,
+        SUM(TRY_CONVERT(DECIMAL(18,2), premium_amount)) AS total_premium,
+        SUM(TRY_CONVERT(DECIMAL(18,2), variance2)) AS total_discrepancy,
+        SUM(CASE WHEN data_quality_flag_calc = 'Y' THEN 1 ELSE 0 END) AS flagged_policies,
         SUM(CASE WHEN data_quality_flag_calc = 'N' THEN 1 ELSE 0 END) AS non_flagged_policies
-    FROM CTE_Policies;
+    FROM CTE_Policies
+    WHERE data_quality_flag_calc = 'Y';
 
 COMMIT TRANSACTION;
 

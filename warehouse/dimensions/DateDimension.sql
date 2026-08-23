@@ -1,11 +1,11 @@
 USE FSA_Warehouse
 GO
 
-IF OBJECT_ID( 'DateDimension', 'U') IS NOT NULL
-    drop table DateDimension
+IF OBJECT_ID( 'warehouse.DateDimension', 'U') IS NOT NULL
+    drop table warehouse.DateDimension
 
 
-CREATE TABLE DateDimension
+CREATE TABLE warehouse.DateDimension
 (
     date_dim_key  INT  IDENTITY (1, 1) PRIMARY KEY,
     date         DATE,

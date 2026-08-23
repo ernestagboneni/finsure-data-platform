@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="ERNESTPC2_MSSQLSERVER_2019.FSA_Warehouse"
+  DTS:DTSID="{F176C917-CF14-4500-91F0-9213C2B93FCD}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=ERNESTPC2\MSSQLSERVER_2019;Initial Catalog=FSA_Warehouse;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-etl_full_load-{F176C917-CF14-4500-91F0-9213C2B93FCD}ERNESTPC2\MSSQLSERVER_2019.FSA_Warehouse;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

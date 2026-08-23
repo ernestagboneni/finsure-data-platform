@@ -1,19 +1,20 @@
 /*
 ================================================================================
 Script:      usp_MergePolicyDimension.sql
-Author:      [Your name] — Phase 5
-Date:        [Date]
+Author:      Ernest Agboneni — Phase 5 (Optimised)
+Date:        16/07/2026
 Description: MERGE procedure for SCD Type 2 on PolicyDimension.
+             Excludes policy_type from change tracking per business rules.
              Called by etl_incremental_load SSIS package nightly.
-Change Log:
-  09/07/2026 Ernest Agboneni Initial version
 ================================================================================
 */
 USE FSA_Warehouse;
 GO
 
-CREATE OR ALTER PROCEDURE usp_MergePolicyDimension
-    @AsOfDate DATE = NULL    -- defaults to today
+CREATE OR ALTER PROCEDURE warehouse.usp_MergePolicyDimension
+    @total_rows_processed INT = NULL OUTPUT , -- total rows processed from source
+	@lastSuccessTimestamp	DATETIME ,
+	@isIncrement	BIT = 0
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -24,7 +25,8 @@ BEGIN
         @inserted_count INT = 0,
         @expired_count  INT = 0,
         @unchanged_count INT = 0,
-        @total_source INT = 0;
+        @total_source INT = 0,
+        @AsOfDate DATE;
 
     SET @AsOfDate = ISNULL(@AsOfDate, CAST(GETDATE() AS DATE));
     SET @effective_to = DATEADD(day, -1, @AsOfDate);
@@ -33,42 +35,65 @@ BEGIN
         BEGIN TRAN;
 
         --------------------------------------------------------------------
-        -- 1) Deduplicate source (one best row per business key)
-        --    Adjust ORDER BY in ROW_NUMBER() if you have a last_modified column.
+        -- 1) Extract clean source data into staging temp table
         --------------------------------------------------------------------
         IF OBJECT_ID('tempdb..#Src') IS NOT NULL DROP TABLE #Src;
-        SELECT
-            TRIM(p.policy_id)         AS policy_id,
-            TRIM(p.underwriter_code)  AS underwriter_code,
-            TRIM(p.policy_type)       AS policy_type,
-            TRIM(p.risk_band)         AS risk_band,
-            TRIM(p.region)            AS region,
-            TRIM(p.payment_frequency) AS payment_frequency
-        INTO #Src
-        FROM FSA_Staging.stg.policies p
-        -- If duplicates exist, use ROW_NUMBER to pick the preferred row (uncomment and adapt):
-        --;WITH src AS (SELECT p.*, ROW_NUMBER() OVER (PARTITION BY p.policy_id, p.underwriter_code ORDER BY p.last_modified DESC) rn FROM FSA_Staging.stg.policies p)
-        --SELECT ... FROM src WHERE rn = 1
+
+        CREATE TABLE #Src
+        (
+            policy_id         NVARCHAR(50),
+            underwriter_code  NVARCHAR(50),
+            policy_type       NVARCHAR(100),
+            risk_band         NVARCHAR(100),
+            region            NVARCHAR(100),
+            payment_frequency NVARCHAR(100)
+        );
+
+        IF @isIncrement = 1
+        BEGIN
+            INSERT INTO #Src (policy_id, underwriter_code, policy_type, risk_band, region, payment_frequency)
+            SELECT
+                TRIM(p.policy_id)         AS policy_id,
+                TRIM(p.underwriter_code)  AS underwriter_code,
+                TRIM(p.policy_type)       AS policy_type,
+                TRIM(p.risk_band)         AS risk_band,
+                TRIM(p.region)            AS region,
+                TRIM(p.payment_frequency) AS payment_frequency
+            
+            FROM FSA_Staging.stg.policies p
+            WHERE p.policy_start_date_converted > @lastSuccessTimestamp
+        END
+        ELSE
+        BEGIN
+            INSERT INTO #Src (policy_id, underwriter_code, policy_type, risk_band, region, payment_frequency)
+            SELECT
+                TRIM(p.policy_id)         AS policy_id,
+                TRIM(p.underwriter_code)  AS underwriter_code,
+                TRIM(p.policy_type)       AS policy_type,
+                TRIM(p.risk_band)         AS risk_band,
+                TRIM(p.region)            AS region,
+                TRIM(p.payment_frequency) AS payment_frequency
+            FROM FSA_Staging.stg.policies p;
+        END
 
         SELECT @total_source = COUNT(*) FROM #Src;
 
         --------------------------------------------------------------------
         -- 2) MERGE: expire current rows that changed (action = UPDATE)
         --    and insert brand-new policies (action = INSERT).
-        --    Match only against current rows (is_current = 1).
         --------------------------------------------------------------------
         DECLARE @MergeOutput TABLE
         (
             MergeAction  NVARCHAR(10),
             policy_id    VARCHAR(50),
-            underwriter_code CHAR(10),
+            underwriter_code VARCHAR(50), -- Fixed type from CHAR(10) to prevent truncation
             policy_type  NVARCHAR(100),
             risk_band    NVARCHAR(100),
             region       NVARCHAR(100),
             payment_frequency NVARCHAR(100)
         );
 
-        MERGE INTO dbo.PolicyDimension AS T
+        MERGE INTO warehouse.PolicyDimension AS T
         USING
         (
             SELECT * FROM #Src
@@ -78,9 +103,10 @@ BEGIN
         AND T.is_current = 1   -- match only current version
         WHEN MATCHED AND
              (
-               ISNULL(T.risk_band,'') <> ISNULL(S.risk_band,'')
-            OR ISNULL(T.region,'')       <> ISNULL(S.region,'')
-            OR ISNULL(T.payment_frequency,'') <> ISNULL(S.payment_frequency,'')
+                -- policy_type intentionally excluded per business rule
+                ISNULL(T.risk_band,'')         <> ISNULL(S.risk_band,'')
+             OR ISNULL(T.region,'')            <> ISNULL(S.region,'')
+             OR ISNULL(T.payment_frequency,'') <> ISNULL(S.payment_frequency,'')
              )
         THEN
             -- expire the current version
@@ -113,11 +139,9 @@ BEGIN
         INTO @MergeOutput(MergeAction, policy_id, underwriter_code, policy_type, risk_band, region, payment_frequency);
 
         --------------------------------------------------------------------
-        -- 3) For every UPDATE action (expired rows) we must insert a new
-        --    "current" version (SCD Type 2 new row) with effective_from = @AsOfDate
-        --    (MERGE did the expiry only).
+        -- 3) For every UPDATE action (expired rows) insert a new "current" version
         --------------------------------------------------------------------
-        INSERT INTO dbo.PolicyDimension
+        INSERT INTO warehouse.PolicyDimension
         (
             policy_id, underwriter_code, policy_type,
             risk_band, region, payment_frequency,
@@ -131,26 +155,26 @@ BEGIN
         WHERE mo.MergeAction = 'UPDATE';
 
         --------------------------------------------------------------------
-        -- 4) Compute counts from the merge output and totals
+        -- 4) Compute counts accurately
         --------------------------------------------------------------------
         SELECT @expired_count = COUNT(*) FROM @MergeOutput WHERE MergeAction = 'UPDATE';
-        SELECT @inserted_count =
-               (SELECT COUNT(*) FROM @MergeOutput WHERE MergeAction = 'INSERT')
-             + (SELECT COUNT(*) FROM @MergeOutput WHERE MergeAction = 'UPDATE'); -- updates produced new inserts too
-
-        SET @unchanged_count = @total_source - @inserted_count;
+        SELECT @inserted_count = COUNT(*) FROM @MergeOutput WHERE MergeAction = 'INSERT';
+        
+        -- Unchanged = total source rows minus brand new inserts and historical updates
+        SET @unchanged_count = @total_source - (@inserted_count + @expired_count);
 
         COMMIT TRAN;
 
         --------------------------------------------------------------------
-        -- 5) Return summary
+        -- 5) Return summary logging data to SSIS
         --------------------------------------------------------------------
-        SELECT
-            @inserted_count  AS inserted_count,
-            @expired_count   AS expired_count,
-            @unchanged_count AS unchanged_count,
-            @total_source    AS total_source_rows,
-            @AsOfDate        AS as_of_date;
+        SET @total_rows_processed = @inserted_count  + @expired_count
+        --SELECT
+        --    @total_rows_processed  AS processed_count, -- Total new rows added to table
+        --    @expired_count   AS expired_count,
+        --    @unchanged_count AS unchanged_count,
+        --    @total_source    AS total_source_rows,
+        --    @AsOfDate        AS as_of_date;
 
         -- cleanup
         DROP TABLE IF EXISTS #Src;

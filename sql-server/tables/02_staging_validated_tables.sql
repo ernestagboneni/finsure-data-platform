@@ -3,7 +3,7 @@ GO
 -- Ensure schema exists
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'stg')
 BEGIN
-    EXEC('CREATE SCHEMA [stg]');
+    EXEC('CREATE SCHEMA stg');
 END
 GO
 
@@ -17,7 +17,7 @@ DROP TABLE stg.Policies
 */
 
 BEGIN TRY
-    CREATE TABLE [stg].[Claims]
+    CREATE TABLE stg.Claims
     (
         claim_reference     NVARCHAR(100)  NOT NULL ,--PRIMARY KEY,
         policy_reference    NVARCHAR(100)  NULL,
@@ -42,7 +42,7 @@ END CATCH;
 GO
 
 BEGIN TRY
-    CREATE TABLE [stg].[GeneralLedgers]
+    CREATE TABLE stg.GeneralLedgers
     (
         gl_entry_id         NVARCHAR(100)  NOT NULL ,--PRIMARY KEY,
         entry_date          DATE           NULL,
@@ -69,7 +69,7 @@ GO
 
 
 BEGIN TRY
-    CREATE TABLE [stg].[Payments]
+    CREATE TABLE stg.Payments
     (
         payment_reference      NVARCHAR(100) NOT NULL, -- PRIMARY KEY,
         policy_reference       NVARCHAR(100) NULL,
@@ -95,7 +95,7 @@ GO
 
 
 BEGIN TRY
-    CREATE TABLE [stg].Policies
+    CREATE TABLE stg.Policies
     (
         policy_id                NVARCHAR(100)   NOT NULL,-- PRIMARY KEY,
         underwriter_code         CHAR(3)    NULL,
@@ -108,11 +108,29 @@ BEGIN TRY
         payment_frequency        NVARCHAR(50)    NULL,
         premium_amount           VARCHAR(50)   NULL,
         warehouse_premium_gbp    VARCHAR(30)   NULL,
-        premium_variance_gbp     VARCHAR(30)   NULL,
+        premium_variance_gbp     VARCHAR(30)   NULL ,
         etl_status               NVARCHAR(50)    NULL,
         etl_processed_week       CHAR(3)         NULL, -- format 'YYYY-WW' recommended
         source_system            NVARCHAR(100)   NULL,
-        data_quality_flag        CHAR(1)         DEFAULT 'N'
+        data_quality_flag        CHAR(1)         DEFAULT 'N',
+        premium_amount_numeric AS (
+        TRY_CAST(REPLACE(REPLACE(REPLACE(premium_amount, 'Â', ''), '£', ''), ',', '') AS DECIMAL(18,2)) ),
+        warehouse_premium_numeric AS (
+        TRY_CAST(REPLACE(REPLACE(REPLACE(warehouse_premium_gbp, 'Â', ''), '£', ''), ',', '') AS DECIMAL(18,2)) ),
+        premium_variance_numeric AS (
+        CAST(ABS(
+                TRY_CAST(REPLACE(REPLACE(REPLACE(premium_amount, 'Â', ''), '£', ''), ',', '') AS DECIMAL(18,2)) - 
+                TRY_CAST(REPLACE(REPLACE(REPLACE(warehouse_premium_gbp, 'Â', ''), '£', ''), ',', '') AS DECIMAL(18,2))
+            ) AS DECIMAL(18,2))
+        ),
+        policy_start_date_converted AS ( CASE 
+        WHEN TRY_CONVERT(DATE, policy_start_date, 23) IS NOT NULL 
+            THEN TRY_CONVERT(DATE, policy_start_date, 23)
+        WHEN TRY_CONVERT(DATE, policy_start_date, 103) IS NOT NULL 
+            THEN TRY_CONVERT(DATE, policy_start_date, 103)
+        ELSE NULL 
+       END ),
+        policy_end_date_converted AS ( TRY_CAST(policy_end_date AS DATE) )
     );
 END TRY
 BEGIN CATCH

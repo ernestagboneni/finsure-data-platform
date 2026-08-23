@@ -1,24 +1,24 @@
 -- Ensure schema exists
 IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'stg')
 BEGIN
-    EXEC('CREATE SCHEMA [stg]');
+    EXEC('CREATE SCHEMA stg');
 END
 GO
 
-IF OBJECT_ID( 'stg.fsa_claims_staging', 'U') IS NOT NULL
- drop table stg.fsa_claims_staging 
+IF OBJECT_ID( 'stg.RawClaimsStaging', 'U') IS NOT NULL
+ drop table stg.RawClaimsStaging 
 
-IF OBJECT_ID( 'stg.fsa_general_ledger', 'U') IS NOT NULL
-    drop table stg.fsa_general_ledger
+IF OBJECT_ID( 'stg.RawGeneralLedger', 'U') IS NOT NULL
+    drop table stg.RawGeneralLedger
 
-IF OBJECT_ID( 'stg.fsa_payments_staging', 'U') IS NOT NULL
-drop table stg.fsa_payments_staging
+IF OBJECT_ID( 'stg.RawPaymentsStaging', 'U') IS NOT NULL
+drop table stg.RawPaymentsStaging
 
-IF OBJECT_ID( 'stg.fsa_premiums_staging', 'U') IS NOT NULL
-drop table stg.fsa_premiums_staging
+IF OBJECT_ID( 'stg.RawPremiumsStaging', 'U') IS NOT NULL
+drop table stg.RawPremiumsStaging
 
 BEGIN TRY
-    CREATE TABLE [stg].fsa_claims_staging
+    CREATE TABLE stg.RawClaimsStaging
     (
         claim_reference     NVARCHAR(100)  NULL ,
         policy_reference    NVARCHAR(100)  NULL,
@@ -43,7 +43,7 @@ END CATCH;
 GO
 
 BEGIN TRY
-    CREATE TABLE [stg].fsa_general_ledger
+    CREATE TABLE stg.RawGeneralLedger
     (
         gl_entry_id         NVARCHAR(100)  NULL ,
         entry_date          DATE           NULL,
@@ -70,7 +70,7 @@ GO
 
 
 BEGIN TRY
-    CREATE TABLE [stg].fsa_payments_staging
+    CREATE TABLE stg.RawPaymentsStaging
     (
         payment_reference      NVARCHAR(100) NULL ,
         policy_reference       NVARCHAR(100) NULL,
@@ -96,7 +96,7 @@ GO
 
 
 BEGIN TRY
-    CREATE TABLE [stg].fsa_premiums_staging
+    CREATE TABLE stg.RawPremiumsStaging
     (
         policy_id                NVARCHAR(100)   NULL ,
         underwriter_code         CHAR(3)    NULL,
