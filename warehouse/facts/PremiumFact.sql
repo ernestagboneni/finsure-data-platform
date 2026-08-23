@@ -1,16 +1,16 @@
 USE FSA_Warehouse
 GO
 
-IF OBJECT_ID( 'PremiumFact', 'U') IS NOT NULL
- drop table PremiumFact 
+IF OBJECT_ID( 'warehouse.PremiumFact', 'U') IS NOT NULL
+ drop table warehouse.PremiumFact 
 
-CREATE TABLE PremiumFact
+CREATE TABLE warehouse.PremiumFact
 (
     premium_fact_id       BIGINT             IDENTITY (1, 1) PRIMARY KEY,
-    policy_dim_key         INT NOT NULL    FOREIGN KEY REFERENCES PolicyDimension (policy_dim_key),
-    date_dim_key           INT NOT NULL            FOREIGN KEY REFERENCES DateDimension (date_dim_key),
-    agent_dim_key          INT NOT NULL             FOREIGN KEY REFERENCES AgentDimension (agent_dim_key),
-    region_dim_key         INT NOT NULL             FOREIGN KEY REFERENCES RegionDimension (region_dim_key),
+    policy_dim_key         INT NOT NULL    FOREIGN KEY REFERENCES warehouse.PolicyDimension (policy_dim_key),
+    date_dim_key           INT NOT NULL            FOREIGN KEY REFERENCES warehouse.DateDimension (date_dim_key),
+    agent_dim_key          INT NOT NULL             FOREIGN KEY REFERENCES warehouse.AgentDimension (agent_dim_key),
+    region_dim_key         INT NOT NULL             FOREIGN KEY REFERENCES warehouse.RegionDimension (region_dim_key),
     policy_id              NVARCHAR (50)  ,
     underwriter_code         NVARCHAR (50)  ,
     payment_frequency          NVARCHAR (50)  ,
